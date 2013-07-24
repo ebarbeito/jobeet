@@ -2,11 +2,14 @@
 
 include(dirname(__FILE__).'/../../bootstrap/doctrine.php');
 
-$t = new lime_test(4);
+$t = new lime_test(5);
 
 $t->comment('->getCompanySlug()');
 $job = Doctrine_Core::getTable('Job')->createQuery()->fetchOne();
+/* @var $job Job */
 $t->is($job->getCompanySlug(), Jobeet::slugify($job->getCompany()), '->getCompanySlug() return the slug for the company');
+$t->is($job->getPositionSlug(), Jobeet::slugify($job->getPosition()), '->getPositionSlug() return the slug for the position');
+$t->is($job->getLocationSlug(), Jobeet::slugify($job->getLocation()), '->getLocationSlug() return the slug for the location');
 
 $t->comment('->save()');
 $job = create_job();
