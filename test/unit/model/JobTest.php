@@ -2,7 +2,7 @@
 
 include(dirname(__FILE__).'/../../bootstrap/doctrine.php');
 
-$t = new lime_test(5);
+$t = new lime_test(6);
 
 $t->comment('->getCompanySlug()');
 $job = Doctrine_Core::getTable('Job')->createQuery()->fetchOne();
