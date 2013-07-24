@@ -2,7 +2,7 @@
 
 include(dirname(__FILE__).'/../../bootstrap/doctrine.php');
 
-$t = new lime_test(3);
+$t = new lime_test(4);
 
 $t->comment('->getCompanySlug()');
 $job = Doctrine_Core::getTable('Job')->createQuery()->fetchOne();
@@ -16,6 +16,7 @@ $t->is($job->getDateTimeObject('expires_at')->format('Y-m-d'), $expiresAt, '->sa
 
 $job = create_job(array('expires_at' => '2008-08-08'));
 $job->save();
+$t->isnt($job->isNew(), true, '->save() object stored in db');
 $t->is($job->getDateTimeObject('expires_at')->format('Y-m-d'), '2008-08-08', '->save() does not update expires_at if set');
 
 function create_job($defaults = array())
@@ -46,4 +47,4 @@ function create_job($defaults = array())
   return $job;
 }
 
-?>my
+?>
