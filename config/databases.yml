@@ -5,3 +5,10 @@ all:
       dsn: 'mysql:host=127.0.0.1;dbname=jobeet'
       username: ebarbeito
       password: null
+test:
+  doctrine:
+    class: sfDoctrineDatabase
+    param:
+      dsn: 'mysql:host=127.0.0.1;dbname=jobeet_test'
+      username: ebarbeito
+      password: null
