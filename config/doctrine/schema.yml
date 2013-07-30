@@ -10,7 +10,7 @@ Job:
   actAs: { Timestampable: ~ }
   columns:
     category_id:  { type: integer, notnull: true }
-    type:         { type: string(255) }
+    type:         { type: string(255), default: 'full-time' }
     company:      { type: string(255), notnull: true }
     logo:         { type: string(255) }
     url:          { type: string(255) }

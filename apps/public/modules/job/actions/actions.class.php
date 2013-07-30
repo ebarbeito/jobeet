@@ -25,9 +25,7 @@ class jobActions extends sfActions
 
   public function executeNew(sfWebRequest $request)
   {
-    $job = new Job();
-    $job->setType('full-time');
-    $this->form = new JobForm($job);
+    $this->form = new JobForm();
   }
 
   public function executeCreate(sfWebRequest $request)
