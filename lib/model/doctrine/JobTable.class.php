@@ -7,6 +7,12 @@
  */
 class JobTable extends Doctrine_Table
 {
+  public static $types = array(
+    'full-time' => 'Full time',
+    'part-time' => 'Part time',
+    'freelance' => 'Freelance',
+  );
+  
   /**
    * Returns an instance of this class.
    *
@@ -28,6 +34,7 @@ class JobTable extends Doctrine_Table
     $alias = $q->getRootAlias();
  
     $q->andWhere($alias . '.expires_at > ?', date('Y-m-d H:i:s', time()))
+	  ->andWhere($alias . '.is_activated = ?', 1)
       ->addOrderBy($alias . '.created_at DESC');
  
     return $q;
@@ -37,10 +44,15 @@ class JobTable extends Doctrine_Table
   {
     return $this->addActiveJobsQuery($q)->execute();
   }
- 
+  
   public function countActiveJobs(Doctrine_Query $q = null)
   {
     return $this->addActiveJobsQuery($q)->count();
+  }
+  
+  public function getTypes()
+  {
+    return self::$types;
   }
  
   public function retrieveActiveJob(Doctrine_Query $q)

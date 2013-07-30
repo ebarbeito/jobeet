@@ -25,7 +25,9 @@ class jobActions extends sfActions
 
   public function executeNew(sfWebRequest $request)
   {
-    $this->form = new JobForm();
+    $job = new Job();
+    $job->setType('full-time');
+    $this->form = new JobForm($job);
   }
 
   public function executeCreate(sfWebRequest $request)
@@ -38,14 +40,14 @@ class jobActions extends sfActions
 
   public function executeEdit(sfWebRequest $request)
   {
-    $this->forward404Unless($job = Doctrine_Core::getTable('Job')->find(array($request->getParameter('id'))), sprintf('Object job does not exist (%s).', $request->getParameter('id')));
+    $job = $this->getRoute()->getObject();
     $this->form = new JobForm($job);
   }
 
   public function executeUpdate(sfWebRequest $request)
   {
+    $job = $this->getRoute()->getObject();
     $this->forward404Unless($request->isMethod(sfRequest::POST) || $request->isMethod(sfRequest::PUT));
-    $this->forward404Unless($job = Doctrine_Core::getTable('Job')->find(array($request->getParameter('id'))), sprintf('Object job does not exist (%s).', $request->getParameter('id')));
     $this->form = new JobForm($job);
     $this->processForm($request, $this->form);
     $this->setTemplate('edit');
@@ -54,11 +56,18 @@ class jobActions extends sfActions
   public function executeDelete(sfWebRequest $request)
   {
     $request->checkCSRFProtection();
-
-    $this->forward404Unless($job = Doctrine_Core::getTable('Job')->find(array($request->getParameter('id'))), sprintf('Object job does not exist (%s).', $request->getParameter('id')));
+	$job = $this->getRoute()->getObject();
     $job->delete();
-
-    $this->redirect('job/index');
+	$this->redirect('job/index');
+  }
+  
+  public function executePublish(sfWebRequest $request)
+  {
+    $request->checkCSRFProtection();
+	$job = $this->getRoute()->getObject();
+    $job->publish();
+    $this->getUser()->setFlash('notice', sprintf('Your job is now online for %s days.', sfConfig::get('app_active_days')));
+    $this->redirect('job_show_user', $job);
   }
 
   protected function processForm(sfWebRequest $request, sfForm $form)
@@ -67,8 +76,7 @@ class jobActions extends sfActions
     if ($form->isValid())
     {
       $job = $form->save();
-
-      $this->redirect('job/edit?id='.$job->getId());
+      $this->redirect('job_show', $job);
     }
   }
 }

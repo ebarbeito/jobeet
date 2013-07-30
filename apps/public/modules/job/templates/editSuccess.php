@@ -1,3 +1,5 @@
-<h1>Edit Job</h1>
+<?php use_stylesheet('job.css') ?>
+
+<h1>Edit job</h1>
 
 <?php include_partial('form', array('form' => $form)) ?>

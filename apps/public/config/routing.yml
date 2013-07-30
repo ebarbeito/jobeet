@@ -7,7 +7,12 @@ category:
 
 job:
   class: sfDoctrineRouteCollection
-  options: { model: Job }
+  options:
+    model: Job
+    column: token
+    object_actions: { publish: put }
+  requirements:
+    token: \w+
  
 job_show_user:
   url: /job/:company_slug/:location_slug/:id/:position_slug
