@@ -33,11 +33,11 @@ class Job extends BaseJob
 		return $this->getType() ? $types[$this->getType()] : '';
 	}
 	
-	
 	public function getDaysBeforeExpires()
 	{
 		return ceil(($this->getDateTimeObject('expires_at')->format('U') - time()) / 86400);
 	}
+	
 	public function isExpired()
 	{
 		return $this->getDaysBeforeExpires() < 0;
@@ -48,9 +48,9 @@ class Job extends BaseJob
 		return $this->getDaysBeforeExpires() < 5;
 	}
 	
-	public function extend()
+	public function extend($force = false)
 	{
-	  if (!$this->expiresSoon()) {
+	  if (!$force && !$this->expiresSoon()) {
 		  return false;
 	  }
 	  

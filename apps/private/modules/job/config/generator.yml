@@ -1,0 +1,86 @@
+generator:
+  class: sfDoctrineGenerator
+  param:
+    model_class: Job
+    theme: admin
+    non_verbose_templates: true
+    with_show: false
+    singular: ~
+    plural: ~
+    route_prefix: job
+    with_doctrine_route: true
+    actions_base_class: sfActions
+
+    config:
+      actions: ~
+      fields:
+        is_activated:
+          label: Activated?
+          help: Whether the user has activated the job, or not
+        is_public:
+          label: Public?
+          help: Whether the job can also be published on affiliate websites, or not
+      list:
+        title: Job Management
+        display: [company, position, location, url, is_activated, email]
+        sort: [expires_at, desc]
+        max_per_page: 10
+        fields:
+          is_activated:
+            label: Active
+          is_public:
+            label: Public
+        actions:
+          _new: ~
+          deleteNeverActivated:
+            label: Delete never activated jobs
+        batch_actions:
+          _delete: ~
+          extend: ~
+        object_actions:
+          _delete: ~
+          _edit: ~
+          extend: ~
+        table_method: retrieveBackendJobList
+        layout: stacked
+        params: |
+                %%is_activated%% <small>%%category%%</small> - %%company%%
+                (<em>%%email%%</em>) is looking for a %%=position%% (%%location%%)
+      filter:
+        display:
+          - category_id
+          - company
+          - position
+          - description
+          - is_activated
+          - is_public
+          - email
+          - expires_at
+        fields:
+          is_activated:
+            label: Active
+          is_public:
+            label: Public
+      form:
+        class: BackendJobForm
+        display:
+          Content:
+            - category_id
+            - type
+            - company
+            - logo
+            - url
+            - position
+            - location
+            - description
+            - how_to_apply
+            - is_public
+            - email
+          Admin:
+            - _generated_token
+            - is_activated
+            - expires_at
+      edit:
+        title: Editing Job "%%company%% is looking for a %%position%%"
+      new:
+        title: Job Creation

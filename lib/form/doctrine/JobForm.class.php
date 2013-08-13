@@ -11,19 +11,7 @@
 class JobForm extends BaseJobForm {
 
 	public function configure() {
-		$this->useFields(array(
-			'category_id', 
-			'type', 
-			'company', 
-			'logo', 
-			'url', 
-			'position', 
-			'location', 
-			'description', 
-			'how_to_apply', 
-			'is_public', 
-			'email'
-		));
+		$this->removeFields();
 		
 		$this->widgetSchema['type'] = new sfWidgetFormChoice(array(
 			'choices'  => JobTable::getInstance()->getTypes(),
@@ -58,6 +46,16 @@ class JobForm extends BaseJobForm {
 		$this->widgetSchema->setHelp('is_public', 'Whether the job can also be published on affiliate websites or not.');
 		
 //		$this->widgetSchema->setNameFormat('jobeet_job[%s]');
+	}
+	
+	protected function removeFields() {
+      unset(
+        $this['created_at'],
+        $this['updated_at'],
+        $this['expires_at'],
+        $this['is_activated'],
+        $this['token']
+      );
 	}
 
 }

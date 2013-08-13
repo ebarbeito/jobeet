@@ -1,0 +1,31 @@
+category:
+  class: sfDoctrineRouteCollection
+  options:
+    model: Category
+    module: category
+    prefix_path: /category
+    column: id
+    with_wildcard_routes: true
+
+job:
+  class: sfDoctrineRouteCollection
+  options:
+    model: Job
+    module: job
+    prefix_path: /job
+    column: id
+    with_wildcard_routes: true
+
+# default rules
+homepage:
+  url: /
+  param: { module: job, action: index }
+
+# generic rules
+# please, remove them by adding more specific rules
+default_index:
+  url: /:module
+  param: { action: index }
+
+default:
+  url: /:module/:action/*

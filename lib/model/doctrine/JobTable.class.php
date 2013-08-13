@@ -69,4 +69,10 @@ class JobTable extends Doctrine_Table
   {
     return $this->addActiveJobsQuery($q)->fetchOne();
   }
+  
+  public function retrieveBackendJobList(Doctrine_Query $q) {
+    $rootAlias = $q->getRootAlias();
+    $q->leftJoin($rootAlias . '.Category c');
+    return $q;
+  }
 }
