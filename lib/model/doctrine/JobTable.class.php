@@ -50,6 +50,13 @@ class JobTable extends Doctrine_Table
     return $this->addActiveJobsQuery($q)->count();
   }
   
+  public function getLatestPost()
+  {
+    $q = Doctrine_Query::create()->from('Job j');
+    $this->addActiveJobsQuery($q);
+    return $q->fetchOne();
+  }
+  
   public function getTypes()
   {
     return self::$types;
@@ -63,7 +70,7 @@ class JobTable extends Doctrine_Table
       ->andWhere('a.created_at < ?', date('Y-m-d', time() - 86400 * $days));
     
     return $q->execute();
-}
+  }
  
   public function retrieveActiveJob(Doctrine_Query $q)
   {

@@ -27,6 +27,11 @@ class Category extends BaseCategory
 		return $q->execute();
 	}
 	
+	public function getLatestPost()
+	{
+		return $this->getActiveJobs(1)->getFirst();
+	}
+	
 	public function getActiveJobsQuery()
 	{
 		$q = $this->getJobsQuery();
