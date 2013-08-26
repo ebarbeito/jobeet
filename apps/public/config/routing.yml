@@ -1,4 +1,11 @@
 # apps/frontend/config/routing.yml
+affiliate:
+  class: sfDoctrineRouteCollection
+  options:
+    model: Affiliate
+    actions: [new, create]
+    object_actions: { wait: get }
+
 category:
   url: /category/:slug.:sf_format
   class: sfDoctrineRoute
@@ -27,7 +34,16 @@ job_show_user:
   requirements:
     id: \d+
     sf_method: [get]
- 
+
+# api
+api_jobs:
+  url: /api/:token/jobs.:sf_format
+  class: sfDoctrineRoute
+  param: { module: api, action: list }
+  options: { model: Job, type: list, method: getForToken }
+  requirements:
+    sf_format: (?:xml|json|yaml)
+
 # default rules
 homepage:
   url: /

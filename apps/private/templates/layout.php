@@ -24,6 +24,7 @@
           <li><?php echo link_to('Jobs', 'job') ?></li>
           <li><?php echo link_to('Categories', 'category') ?></li>
 		  <li><?php echo link_to('Users', 'sf_guard_user') ?></li>
+		  <li><a href="<?php echo url_for('affiliate') ?>">Affiliates - <strong><?php echo AffiliateTable::getInstance()->countToBeActivated(); ?></strong></a></li>
 		  <li><?php echo link_to('Logout', 'sf_guard_signout') ?></li>
         </ul>
       </div>

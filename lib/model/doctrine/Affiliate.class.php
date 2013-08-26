@@ -10,6 +10,36 @@
  * @author     Your name here
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
-class Affiliate extends BaseAffiliate
-{
+class Affiliate extends BaseAffiliate {
+
+	public function activate() {
+		$this->setIsActive(true);
+		return $this->save();
+	}
+
+	public function deactivate() {
+		$this->setIsActive(false);
+		return $this->save();
+	}
+
+	public function getActiveJobs() {
+		$q = Doctrine_Query::create()
+		     ->select('j.*')
+		     ->from('Job j')
+		     ->leftJoin('j.Category c')
+		     ->leftJoin('c.Affiliates a')
+		     ->where('a.id = ?', $this->getId());
+
+		$q = JobTable::getInstance()->addActiveJobsQuery($q);
+		return $q->execute();
+	}
+
+	public function save(Doctrine_Connection $conn = null) {
+		if (!$this->getToken()) {
+			$this->setToken(sha1($this->getEmail() . rand(11111, 99999)));
+		}
+
+		return parent::save($conn);
+	}
+
 }

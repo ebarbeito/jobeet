@@ -50,6 +50,16 @@ class JobTable extends Doctrine_Table
     return $this->addActiveJobsQuery($q)->count();
   }
   
+  public function getForToken(array $parameters)
+  {
+    $affiliate = AffiliateTable::getInstance()->findOneByToken($parameters['token']);
+    if (!$affiliate || !$affiliate->getIsActive()) {
+      throw new sfError404Exception(sprintf('Affiliate with token "%s" does not exist or is not activated.', $parameters['token']));
+    }
+ 
+    return $affiliate->getActiveJobs();
+  }
+  
   public function getLatestPost()
   {
     $q = Doctrine_Query::create()->from('Job j');
