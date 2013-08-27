@@ -10,30 +10,28 @@ generator:
     route_prefix: affiliate
     with_doctrine_route: true
     actions_base_class: sfActions
-
-  config:
-    fields:
-      is_active:
-        label: Active?
-    list:
-      title: Affiliate Management
+  
+    config:
       fields:
         is_active:
           label: Active?
-      display:
-        - is_active
-        - url
-        - email
-        - token
-      sort:
-        - is_active
-      object_actions:
-        activate: ~
-        deactivate: ~
-      batch_actions:
-        activate: ~
-        deactivate: ~
-      actions: {}
+      list:
+        title: Affiliate Management
+        display:
+          - is_active
+          - url
+          - email
+          - token
+        sort:
+          - is_active
+        object_actions:
+          _edit: ~
+          activate: ~
+          deactivate: ~
+        batch_actions:
+          activate: ~
+          deactivate: ~
+        actions: {}
       filter:
         display:
           - url
