@@ -1,5 +1,6 @@
 # symfony related
 cache/
+data/*.index
 data/sql/*
 log/*
 lib/filter/doctrine/base/Base*

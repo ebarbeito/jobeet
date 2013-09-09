@@ -35,6 +35,10 @@ job_show_user:
     id: \d+
     sf_method: [get]
 
+job_search:
+  url:   /search
+  param: { module: job, action: search }
+
 # api
 api_jobs:
   url: /api/:token/jobs.:sf_format

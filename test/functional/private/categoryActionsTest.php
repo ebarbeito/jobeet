@@ -13,7 +13,7 @@ $browser->
   end()->
 
   with('response')->begin()->
-    isStatusCode(200)->
+    isStatusCode(401)->
     checkElement('body', '!/This is a temporary page/')->
   end()
 ;

@@ -23,6 +23,21 @@ class JobTable extends Doctrine_Table
     return Doctrine_Core::getTable('Job');
   }
   
+  static public function getLuceneIndex()
+  {
+    ProjectConfiguration::registerZend();
+    if (file_exists($index = self::getLuceneIndexFile())) {
+      return Zend_Search_Lucene::open($index);
+    }
+    
+    return Zend_Search_Lucene::create($index);
+  }
+  
+  static public function getLuceneIndexFile()
+  {
+    return sfConfig::get('sf_data_dir').'/job.'.sfConfig::get('sf_environment').'.index';
+  }
+  
   public function addActiveJobsQuery(Doctrine_Query $q = null)
   {
     if (is_null($q))
@@ -48,6 +63,27 @@ class JobTable extends Doctrine_Table
   public function countActiveJobs(Doctrine_Query $q = null)
   {
     return $this->addActiveJobsQuery($q)->count();
+  }
+  
+  public function getForLuceneQuery($query)
+  {
+    $hits = self::getLuceneIndex()->find($query);
+    $pks = array();
+    
+    foreach ($hits as $hit) {
+      $pks[] = $hit->pk;
+    }
+ 
+    if (empty($pks)) {
+      return array();
+    }
+ 
+    $q = $this->createQuery('j')
+         ->whereIn('j.id', $pks)
+         ->limit(20);
+    
+    $q = $this->addActiveJobsQuery($q);
+    return $q->execute();
   }
   
   public function getForToken(array $parameters)

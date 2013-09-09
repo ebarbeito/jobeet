@@ -77,7 +77,13 @@ class jobActions extends sfActions
     $this->forward404Unless($job->extend());
 	$this->getUser()->setFlash('notice', sprintf('Your job validity has been extended until %s.', $job->getDateTimeObject('expires_at')->format('m/d/Y')));
     $this->redirect('job_show_user', $job);
-  }		  
+  }
+  
+  public function executeSearch(sfWebRequest $request)
+  {
+    $this->forwardUnless($query = $request->getParameter('query'), 'job', 'index');
+    $this->jobs = Doctrine_Core::getTable('Job') ->getForLuceneQuery($query);
+  }
   
   protected function processForm(sfWebRequest $request, sfForm $form)
   {
