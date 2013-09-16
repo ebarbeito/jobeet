@@ -36,8 +36,10 @@ job_show_user:
     sf_method: [get]
 
 job_search:
-  url:   /search
-  param: { module: job, action: search }
+  url: /search.:sf_format
+  param: { module: job, action: search, sf_format: html }
+  requirements:
+    sf_format: (?:html|js)
 
 # api
 api_jobs:

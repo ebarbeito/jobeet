@@ -20,7 +20,7 @@ Job:
     is_activated: true
     token:        job_sensio_labs
     email:        job@example.com
-    expires_at:   '2010-10-10'
+    expires_at:   '2014-10-10'
  
   job_extreme_sensio:
     Category:  design
@@ -46,7 +46,7 @@ Job:
     is_activated: true
     token:        job_extreme_sensio
     email:        job@example.com
-    expires_at:   '2010-10-10'
+    expires_at:   '2014-10-10'
 
 # Starts at the beginning of the line (no whitespace before)
 <?php for ($i = 100; $i <= 130; $i++): ?>

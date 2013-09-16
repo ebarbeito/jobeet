@@ -5,15 +5,16 @@
 	  <title><?php include_slot('title', 'Jobeet - Your best job board') ?></title>
     <link rel="shortcut icon" href="/favicon.ico" />
 	<link rel="alternate" type="application/atom+xml" title="Latest Jobs" href="<?php echo url_for('job', array('sf_format' => 'atom'), true) ?>" />
-    <?php include_javascripts() ?>
     <?php include_stylesheets() ?>
+	<?php use_javascript('jquery-1.10.2.min.js') ?>
+	<?php use_javascript('search.js') ?>
   </head>
   <body>
     <div id="container">
       <div id="header">
         <div class="content">
           <h1><a href="<?php echo url_for('homepage') ?>">
-            <img src="/legacy/images/logo.jpg" alt="Jobeet Job Board" />
+            <img src="/images/logo.jpg" alt="Jobeet Job Board" />
           </a></h1>
  
           <div id="sub_header">
@@ -29,6 +30,7 @@
               <form action="<?php echo url_for('job_search') ?>" method="get">
                 <input type="text" name="query" value="<?php echo $sf_request->getParameter('query') ?>" id="search_keywords" />
                 <input type="submit" value="search" />
+                <img id="loader" src="/images/loader.gif" style="vertical-align: middle; display: none" />
                 <div class="help">
                   Enter some keywords (city, country, position, ...)
                 </div>
@@ -59,9 +61,9 @@
       <div id="footer">
         <div class="content">
           <span class="symfony">
-            <img src="/legacy/images/jobeet-mini.png" />
+            <img src="/images/jobeet-mini.png" />
             powered by <a href="/">
-            <img src="/legacy/images/symfony.gif" alt="symfony framework" />
+            <img src="/images/symfony.gif" alt="symfony framework" />
             </a>
           </span>
           <ul>
@@ -73,5 +75,6 @@
         </div>
       </div>
     </div>
+    <?php include_javascripts() ?>
   </body>
 </html>
