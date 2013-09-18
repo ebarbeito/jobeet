@@ -7,7 +7,7 @@ $browser->loadData();
  
 $browser->
   info('1 - An affiliate can create an account')->
-  get('/affiliate/new')->
+  get('/en/affiliate/new')->
   click('Submit', array('affiliate' => array(
     'url' => 'http://www.example.com/',
     'email' => 'foo@example.com',
@@ -18,7 +18,7 @@ $browser->
   with('response')->checkElement('#content h1', 'Your affiliate account has been created')->
  
   info('2 - An affiliate must at least select one category')->
-  get('/affiliate/new')->
+  get('/en/affiliate/new')->
   click('Submit', array('affiliate' => array(
     'url' => 'http://www.example.com/',
     'email' => 'foo@example.com',

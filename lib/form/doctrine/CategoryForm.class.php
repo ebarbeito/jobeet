@@ -15,6 +15,10 @@ class CategoryForm extends BaseCategoryForm {
 			'name',
 			'slug',
 		));
+		
+		$this->embedI18n(array('en', 'es'));
+		$this->widgetSchema->setLabel('en', 'English');
+		$this->widgetSchema->setLabel('es', 'Spanish');
 	}
 
 }

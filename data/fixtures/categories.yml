@@ -1,11 +1,27 @@
 # Initialization data file for table Category
 Category:
   design:
-    name: Design
+    Translation:
+      en:
+        name: Design
+      es:
+        name: Diseño
   programming:
-    name: Programming
+    Translation:
+      en:
+        name: Programming
+      es:
+        name: Programación
   manager:
-    name: Manager
+    Translation:
+      en:
+        name: Manager
+      es:
+        name: Director
   administrator:
-    name: Administrator
+    Translation:
+      en:
+        name: Administrator
+      es:
+        name: Administrador
  

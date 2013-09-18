@@ -5,13 +5,17 @@ affiliate:
     model: Affiliate
     actions: [new, create]
     object_actions: { wait: get }
+    prefix_path: /:sf_culture/affiliate
+  requirements:
+    sf_culture: (?:es|en)
 
 category:
-  url: /category/:slug.:sf_format
+  url: /:sf_culture/category/:slug.:sf_format
   class: sfDoctrineRoute
   param: { module: category, action: show, sf_format: html }
-  options: { model: Category, type: object }
+  options: { model: Category, type: object, method: doSelectForSlug }
   requirements:
+#    sf_culture: (?:es|en)
     sf_format: (?:html|atom)
 
 job:
@@ -20,11 +24,13 @@ job:
     model: Job
     column: token
     object_actions: { publish: put, extend: put }
+    prefix_path: /:sf_culture/job
   requirements:
+    sf_culture: (?:es|en)
     token: \w+
  
 job_show_user:
-  url: /job/:company_slug/:location_slug/:id/:position_slug
+  url: /:sf_culture/job/:company_slug/:location_slug/:id/:position_slug
   class: sfDoctrineRoute
   options:
     model: Job
@@ -33,12 +39,14 @@ job_show_user:
   param: { module: job, action: show }
   requirements:
     id: \d+
+    sf_culture: (?:es|en)
     sf_method: [get]
 
 job_search:
-  url: /search.:sf_format
+  url: /:sf_culture/search.:sf_format
   param: { module: job, action: search, sf_format: html }
   requirements:
+    sf_culture: (?:es|en)
     sf_format: (?:html|js)
 
 # api
@@ -49,6 +57,16 @@ api_jobs:
   options: { model: Job, type: list, method: getForToken }
   requirements:
     sf_format: (?:xml|json|yaml)
+
+change_language:
+  url: /change_language
+  param: { module: language, action: changeLanguage }
+
+localized_homepage:
+  url: /:sf_culture/
+  param: { module: job, action: index }
+  requirements:
+    sf_culture: (?:es|en)
 
 # default rules
 homepage:

@@ -12,7 +12,7 @@ class ProjectConfiguration extends sfProjectConfiguration {
 		if (self::$zendLoaded) {
 			return;
 		}
-		
+
 		set_include_path(sfConfig::get('sf_lib_dir') . '/vendor' . PATH_SEPARATOR . get_include_path());
 		require_once sfConfig::get('sf_lib_dir') . '/vendor/Zend/Loader/Autoloader.php';
 		Zend_Loader_Autoloader::getInstance();
@@ -20,8 +20,11 @@ class ProjectConfiguration extends sfProjectConfiguration {
 	}
 
 	public function setup() {
-		$this->enablePlugins('sfDoctrinePlugin');
-		$this->enablePlugins('sfDoctrineGuardPlugin');
+		$this->enablePlugins(array(
+			'sfDoctrinePlugin',
+			'sfDoctrineGuardPlugin',
+			'sfFormExtraPlugin'
+		));
 	}
 
 }

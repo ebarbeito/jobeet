@@ -33,3 +33,15 @@ all:
 
     # Enable the database manager
     use_database:           true
+    
+    # Encoding
+    charset: utf-8
+    
+    # Preferred culture
+    default_culture: es_ES
+    
+    # Enable internationalization
+    i18n: true
+    
+    # Globally loaded helpers
+    standard_helpers: [Partial, Cache, I18N]

@@ -15,8 +15,7 @@
 
       <?php if (($count = $category->countActiveJobs() - $maxJobs) > 0): ?>
       <div class="more_jobs">
-        and <?php echo link_to($count, 'category', $category) ?>
-        more...
+        <?php echo __('and %count% more...', array('%count%' => link_to($count, 'category', $category))) ?>
       </div>
       <?php endif; ?>
     </div>
